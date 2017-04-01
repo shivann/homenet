@@ -11,13 +11,16 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Enumeration;
 
 @Component
 public class RouteFilter extends ZuulFilter {
 
     private static Logger log = LoggerFactory.getLogger(RouteFilter.class);
 
-    @Value("${unauthorized.url.redirect:http://google.com}")
+    private static final String BLOCKED = "iol";
+
+    @Value("${unauthorized.url.redirect:http://news.ycombinator.com}")
     private String redirect;
 
     @Override
@@ -35,6 +38,20 @@ public class RouteFilter extends ZuulFilter {
     }
 
     private boolean isAuthorizedRequest(HttpServletRequest request) {
+
+        Enumeration<String> headers =  request.getHeaderNames();
+
+        while (headers.hasMoreElements()) {
+            String header = headers.nextElement();
+            if ("host".equalsIgnoreCase(header)) {
+                String hostVal = request.getHeader(header);
+                if (hostVal != null && hostVal.contains(BLOCKED)) {
+                    log.debug(" -- Blocking " + hostVal + " redirecting to " + redirect);
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
