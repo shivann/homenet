@@ -54,9 +54,9 @@ public class RouteFilter extends ZuulFilter {
 
         try {
             if (isAuthorizedRequest(ctx.getRequest())) {
-                setRouteHost(ctx);
+                setRouteHost(ctx); //   fwd
             } else {
-
+                ctx.setRouteHost(new URL(redirect)); // block
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
