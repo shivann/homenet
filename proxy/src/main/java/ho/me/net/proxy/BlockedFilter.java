@@ -1,6 +1,5 @@
 package ho.me.net.proxy;
 
-import com.netflix.zuul.ZuulFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +12,9 @@ import java.util.List;
 public class BlockedFilter extends AbstractFilter {
 
     private static final List<String> BLOCKED = Arrays.asList(
-            "wired.com",
-                "amazon.com"
+            "youporn",
+                 "xhamster",
+                 "pornhub"
     );
 
 
@@ -38,12 +38,29 @@ public class BlockedFilter extends AbstractFilter {
 
     @Override
     protected boolean isAuthorizedRequest(HttpServletRequest request) {
+
         try {
-            return !BLOCKED.contains(proxyUtil.getHostName(request.getHeader("host")));
+            String host = proxyUtil.getHostName(request.getHeader("host"));
+            return !blocked(host);
         } catch (URISyntaxException e) {
             log.debug(" -- Error parsing host ", e);
-            return false;
+        } catch (Exception e) {
+            log.debug(" -- Error " + e);
         }
+
+        return false;
+    }
+
+    private boolean blocked(String host) {
+        boolean isBlocked = false;
+
+        if (host != null) {
+            for (String block: BLOCKED) {
+                isBlocked = isBlocked || host.toLowerCase().contains(block.toLowerCase());
+            }
+        }
+
+        return isBlocked;
     }
 
 }

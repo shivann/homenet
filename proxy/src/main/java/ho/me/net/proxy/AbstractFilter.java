@@ -19,7 +19,7 @@ public abstract class AbstractFilter extends ZuulFilter {
     @Value("${unauthorized.url.redirect:http://localhost:80}")
     private String redirect;
 
-    protected boolean _isAuthorizedRequest(HttpServletRequest request) {
+//    protected boolean _isAuthorizedRequest(HttpServletRequest request) {
 //
 //        Enumeration<String> headers =  request.getHeaderNames();
 //
@@ -34,8 +34,8 @@ public abstract class AbstractFilter extends ZuulFilter {
 //            }
 //        }
 
-        return true;
-    }
+//        return true;
+//    }
 
     protected abstract boolean isAuthorizedRequest(HttpServletRequest request);
 

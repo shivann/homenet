@@ -1,5 +1,7 @@
 package ho.me.net.proxy;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
@@ -9,6 +11,8 @@ import java.util.Date;
 
 @Component
 public class ProxyUtil {
+
+    protected static Logger log = LoggerFactory.getLogger(ProxyUtil.class);
 
     public static boolean isWeekend() {
         return isWeekend(new Date());
