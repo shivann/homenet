@@ -2,6 +2,7 @@ package ho.me.net.proxy;
 
 import org.junit.Test;
 
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +45,19 @@ public class ProxyUtilTest {
                 .isWeekend(DATE_FORMAT.parse(FRIDAY)))
                 .isFalse()
                 .withFailMessage("isWeekend should be FALSE for FRIDAY");
+
+    }
+
+    @Test
+    public void test_get_host_name() {
+
+        String testUrl = "http://www.wired.com";
+
+        try {
+            System.out.println(ProxyUtil.getHostName(testUrl));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
     }
 

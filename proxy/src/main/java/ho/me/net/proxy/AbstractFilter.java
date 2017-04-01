@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Enumeration;
 
@@ -67,10 +68,6 @@ public abstract class AbstractFilter extends ZuulFilter {
         }
 
         return null;
-    }
-
-    public static String getHostName(String host) {
-        return "";
     }
 
 }

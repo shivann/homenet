@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,7 +38,12 @@ public class BlockedFilter extends AbstractFilter {
 
     @Override
     protected boolean isAuthorizedRequest(HttpServletRequest request) {
-        return !BLOCKED.contains(getHostName(request.getHeader("host")));
+        try {
+            return !BLOCKED.contains(proxyUtil.getHostName(request.getHeader("host")));
+        } catch (URISyntaxException e) {
+            log.debug(" -- Error parsing host ", e);
+            return false;
+        }
     }
 
 }
