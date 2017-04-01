@@ -4,6 +4,7 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,10 @@ public class RouteFilter extends ZuulFilter {
 
     private static final String BLOCKED = "iol";
 
-    @Value("${unauthorized.url.redirect:http://news.ycombinator.com}")
+    @Autowired
+    ProxyUtil proxyUtil;
+
+    @Value("${unauthorized.url.redirect:http://localhost:80}")
     private String redirect;
 
     @Override

@@ -17,7 +17,6 @@ public class ProxyImpl {
     private static Logger log = LoggerFactory.getLogger(ProxyImpl.class);
 
     public static void main(String[] args) {
-        log.debug(" -- MAIN -- ");
         new SpringApplicationBuilder(ProxyImpl.class).bannerMode(Banner.Mode.OFF).run(args);
     }
 
