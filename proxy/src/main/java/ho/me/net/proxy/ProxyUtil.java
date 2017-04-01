@@ -16,7 +16,7 @@ public class ProxyUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int day = calendar.get(Calendar.DAY_OF_WEEK);
-        return day == 6 || day == 7;
+        return day == 1 || day == 7;
     }
 
 }
