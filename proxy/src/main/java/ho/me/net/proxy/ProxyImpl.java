@@ -1,6 +1,5 @@
 package ho.me.net.proxy;
 
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.netflix.zuul.ZuulFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +19,14 @@ public class ProxyImpl {
         new SpringApplicationBuilder(ProxyImpl.class).bannerMode(Banner.Mode.OFF).run(args);
     }
 
-    @Bean
+    @Bean("ManagedFilter")
     public ZuulFilter routeFilter() {
-        return new RouteFilter();
+        return new ManagedFilter();
+    }
+
+    @Bean("BlockedFilter")
+    public ZuulFilter blockedFilter() {
+        return new BlockedFilter();
     }
 
 
