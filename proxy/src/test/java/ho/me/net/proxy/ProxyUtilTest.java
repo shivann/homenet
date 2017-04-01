@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Java6Assertions.fail;
 
 public class ProxyUtilTest {
 
@@ -51,12 +52,12 @@ public class ProxyUtilTest {
     @Test
     public void test_get_host_name() {
 
-        String testUrl = "http://www.wired.com";
+        String testUrl = "http://news.ycombinator.com";
 
         try {
-            System.out.println(ProxyUtil.getHostName(testUrl));
+            assertThat(ProxyUtil.getHostName(testUrl).equals("news.ycombinator.com")).isTrue().withFailMessage("hostname incorrect");
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            fail("Should not get an exception " + e.getMessage());
         }
 
     }
