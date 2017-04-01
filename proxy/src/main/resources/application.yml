@@ -22,4 +22,4 @@ logging:
   level:
     ROOT: INFO
     org.springframework.web: INFO
-    info.tcb: DEBUG
+    ho.me.net.proxy: DEBUG
