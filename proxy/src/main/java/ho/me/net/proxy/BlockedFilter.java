@@ -5,9 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 @Component("BlockedFilter")
 public class BlockedFilter extends AbstractFilter {
+
+    private static final List<String> BLOCKED = Arrays.asList(
+            "wired.com",
+                "amazon.com"
+    );
+
 
     @Autowired
     ProxyUtil proxyUtil;
@@ -29,7 +37,7 @@ public class BlockedFilter extends AbstractFilter {
 
     @Override
     protected boolean isAuthorizedRequest(HttpServletRequest request) {
-        return true;
+        return !BLOCKED.contains(getHostName(request.getHeader("host")));
     }
 
 }

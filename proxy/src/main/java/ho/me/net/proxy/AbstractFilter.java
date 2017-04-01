@@ -53,8 +53,6 @@ public abstract class AbstractFilter extends ZuulFilter {
 
     public Object run() {
 
-        log.debug(" -- Filters initialized");
-
         RequestContext ctx = RequestContext.getCurrentContext();
 
         try {
@@ -69,6 +67,10 @@ public abstract class AbstractFilter extends ZuulFilter {
         }
 
         return null;
+    }
+
+    public static String getHostName(String host) {
+        return "";
     }
 
 }
